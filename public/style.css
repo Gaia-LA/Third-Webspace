@@ -1,18 +1,85 @@
-body, html {
+/* Reset */
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body {
+  height: 100%;
   margin: 0;
   padding: 0;
   overflow: hidden;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: #fafafa;
 }
+
+/* Toolbar */
 #toolbar {
   position: fixed;
-  top: 0;
-  left: 0;
-  background: #eee;
-  padding: 5px;
-  z-index: 10;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  background: rgba(255,255,255,0.95);
+  border-radius: 10px;
+  padding: 8px;
+  z-index: 30;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
+
+/* Rows inside toolbar */
+#toolbar .row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Buttons */
+.tool {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 10px 12px;
+  font-size: 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  min-width: 54px;
+  touch-action: manipulation;
+}
+.tool:active, .tool.active {
+  background: #f0f8ff;
+  border-color: #91c5ff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06) inset;
+}
+
+/* Controls */
+.controls { gap: 12px; }
+.control-item { display:flex; flex-direction: column; align-items:center; min-width:70px; }
+.control-item input[type="range"] { width: 100px; }
+
+/* Small label under sliders */
+.label-small { font-size: 11px; color: #666; margin-top:4px; }
+
+/* Canvases: full viewport sized */
 canvas {
   position: absolute;
-  top: 40px; /* below toolbar */
+  top: 0;
   left: 0;
+  z-index: 5;
+  touch-action: none; /* so pointer events behave predictably */
+}
+
+/* overlay sits above main canvas for cursors */
+#overlayCanvas { z-index: 40; pointer-events: none; }
+
+/* Mobile adjustments */
+@media (max-width: 720px) {
+  #toolbar {
+    left: 6px;
+    right: 6px;
+    padding: 6px;
+  }
+  .tool {
+    padding: 12px;
+    font-size: 16px;
+    min-width: 60px;
+  }
+  .control-item input[type="range"] { width: 120px; }
 }
